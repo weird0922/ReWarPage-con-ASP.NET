@@ -201,7 +201,7 @@ namespace ReWearWeb.Migrations
                             Id = 5,
                             CategoriaId = 1,
                             Color = "Rojo/Negro",
-                            Descripcion = "Camisa de franela a cuadros rojos y negros, estilo vintage, talla L.",
+                            Descripcion = "Camisa de franela a cuadros rojos y negros, estilo vintage.",
                             EstaDisponible = true,
                             Estado = "Usado - Bueno",
                             FechaPublicacion = new DateTime(2024, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified),

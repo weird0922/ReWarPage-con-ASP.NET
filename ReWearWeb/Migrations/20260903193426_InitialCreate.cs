@@ -110,7 +110,7 @@ namespace ReWearWeb.Migrations
                     { 2, 2, "Azul oscuro", "Jeans azul oscuro, talla 32, corte recto. Muy cómodos y sin desgaste visible.", true, "Usado - Excelente", new DateTime(2024, 6, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), "Levi's", 55.00m, "32", "Jeans azul clásico", 2 },
                     { 3, 3, "Estampado", "Vestido corto con estampado floral, material liviano. Perfecto para el verano.", true, "Nuevo con etiqueta", new DateTime(2024, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Mango", 48.00m, "S", "Vestido floral de verano", 3 },
                     { 4, 4, "Blanco", "Zapatillas blancas de cuero sintético, talla 40. Usadas solo un par de veces.", true, "Usado - Muy bueno", new DateTime(2024, 6, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nike", 80.00m, "40", "Zapatillas blancas casuales", 1 },
-                    { 5, 1, "Rojo/Negro", "Camisa de franela a cuadros rojos y negros, estilo vintage, talla L.", true, "Usado - Bueno", new DateTime(2024, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hollister", 42.00m, "L", "Camisa a cuadros estilo vintage", 2 }
+                    { 5, 1, "Rojo/Negro", "Camisa de franela a cuadros rojos y negros, estilo vintage.", true, "Usado - Bueno", new DateTime(2024, 6, 14, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hollister", 42.00m, "L", "Camisa a cuadros estilo vintage", 2 }
                 });
 
             migrationBuilder.CreateIndex(

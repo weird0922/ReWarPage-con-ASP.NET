@@ -156,7 +156,7 @@ public class AppDbContext : DbContext
                 {
                     Id = 5,
                     Titulo = "Camisa a cuadros estilo vintage",
-                    Descripcion = "Camisa de franela a cuadros rojos y negros, estilo vintage, talla L.",
+                    Descripcion = "Camisa de franela a cuadros rojos y negros, estilo vintage.",
                     Precio = 42.00m,
                     Talla = "L",
                     Estado = "Usado - Bueno",

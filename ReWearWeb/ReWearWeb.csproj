@@ -7,8 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Repository\" />
-    <Folder Include="Services\" />
+    <Compile Remove="Repository\**" />
+    <Compile Remove="Services\**" />
+    <Content Remove="Repository\**" />
+    <Content Remove="Services\**" />
+    <EmbeddedResource Remove="Repository\**" />
+    <EmbeddedResource Remove="Services\**" />
+    <None Remove="Repository\**" />
+    <None Remove="Services\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -13,15 +13,15 @@ public class PrendasController : Controller
         _context = context;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        var prendas = _context.Prendas
+        var prendas = await _context.Prendas
                               .Include(p => p.Categoria)
                               .Include(p => p.Vendedor)
                               .Where(p => p.EstaDisponible)
                               .OrderByDescending(p => p.FechaPublicacion)
                               .Take(5)
-                              .ToList();
+                              .ToListAsync();
 
         return View(prendas);
     }
