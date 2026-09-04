@@ -1,10 +1,14 @@
 using Microsoft.EntityFrameworkCore;
 using ReWearWeb.Data;
+using ReWearWeb.Services.Implementations;
+using ReWearWeb.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IPrendaService, PrendaService>();
 
 builder.Services.AddControllersWithViews();
 

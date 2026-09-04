@@ -1,28 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using ReWearWeb.Data;
+using ReWearWeb.Services.Interfaces;
 
 namespace ReWearWeb.Controllers;
 
 public class PrendasController : Controller
 {
-    private readonly AppDbContext _context;
+    private readonly IPrendaService _prendaService;
 
-    public PrendasController(AppDbContext context)
+    public PrendasController(IPrendaService prendaService)
     {
-        _context = context;
+        _prendaService = prendaService;
     }
 
     public async Task<IActionResult> Index()
     {
-        var prendas = await _context.Prendas
-                              .Include(p => p.Categoria)
-                              .Include(p => p.Vendedor)
-                              .Where(p => p.EstaDisponible)
-                              .OrderByDescending(p => p.FechaPublicacion)
-                              .Take(5)
-                              .ToListAsync();
-
+        var prendas = await _prendaService.ObtenerPrendasDestacadasAsync();
         return View(prendas);
     }
 }
