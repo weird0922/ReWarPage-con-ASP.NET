@@ -5,9 +5,12 @@
 }
 
 <div class="rewear-page-header">
-    <div class="rewear-section-wrap">
-        <h1 class="rewear-page-title">Prendas disponibles</h1>
-        <p class="rewear-page-subtitle">Ropa con historia, lista para una segunda vida.</p>
+    <div class="rewear-section-wrap d-flex justify-content-between align-items-end flex-wrap gap-3">
+        <div>
+            <h1 class="rewear-page-title">Prendas disponibles</h1>
+            <p class="rewear-page-subtitle">Ropa con historia, lista para una segunda vida.</p>
+        </div>
+        <a asp-action="Create" class="btn rewear-btn-ingresar">Publicar prenda</a>
     </div>
 </div>
 
@@ -18,9 +21,16 @@
             <div class="col-md-6 col-lg-4">
                 <article class="rewear-prenda-card">
                     <div class="rewear-prenda-img">
-                        <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--rewear-zinc-500)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>
-                        </svg>
+                        @if (!string.IsNullOrEmpty(prenda.ImagenUrl))
+                        {
+                            <img src="@prenda.ImagenUrl" alt="@prenda.Titulo" />
+                        }
+                        else
+                        {
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="var(--rewear-zinc-500)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/>
+                            </svg>
+                        }
                     </div>
                     <div class="rewear-prenda-body">
                         <div class="rewear-prenda-meta">
@@ -58,6 +68,8 @@
                             </div>
                             <span class="rewear-prenda-date">@prenda.FechaPublicacion.ToString("dd MMM yyyy")</span>
                         </footer>
+
+                        <a asp-action="Edit" asp-route-id="@prenda.Id" class="btn btn-sm btn-outline-primary mt-2">Editar</a>
                     </div>
                 </article>
             </div>

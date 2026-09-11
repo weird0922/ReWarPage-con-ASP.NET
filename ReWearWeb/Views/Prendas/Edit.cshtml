@@ -1,0 +1,83 @@
+@model ReWearWeb.Models.DTOs.PrendaFormViewModel
+
+@{
+    ViewData["Title"] = "Editar prenda";
+}
+
+<h1>Editar prenda</h1>
+
+<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+@if (!string.IsNullOrEmpty(Model.ImagenUrlActual))
+{
+    <div class="mb-3">
+        <img src="@Model.ImagenUrlActual" alt="Foto actual" style="max-width:200px;" class="img-thumbnail" />
+    </div>
+}
+
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ImagenUrlActual" />
+    <div class="mb-3">
+        <label asp-for="Titulo" class="form-label"></label>
+        <input asp-for="Titulo" class="form-control" />
+        <span asp-validation-for="Titulo" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Descripcion" class="form-label"></label>
+        <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Descripcion" class="text-danger"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <label asp-for="Precio" class="form-label"></label>
+            <input asp-for="Precio" class="form-control" />
+            <span asp-validation-for="Precio" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label asp-for="Talla" class="form-label"></label>
+            <input asp-for="Talla" class="form-control" />
+            <span asp-validation-for="Talla" class="text-danger"></span>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label asp-for="Estado" class="form-label"></label>
+            <input asp-for="Estado" class="form-control" />
+            <span asp-validation-for="Estado" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="Marca" class="form-label"></label>
+            <input asp-for="Marca" class="form-control" />
+        </div>
+        <div class="col-md-6 mb-3">
+            <label asp-for="Color" class="form-label"></label>
+            <input asp-for="Color" class="form-control" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label asp-for="CategoriaId" class="form-label"></label>
+            <select asp-for="CategoriaId" class="form-select" asp-items="ViewBag.Categorias"></select>
+            <span asp-validation-for="CategoriaId" class="text-danger"></span>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Vendedor</label>
+            <input type="text" class="form-control" value="@Model.VendedorNombreCompleto" disabled readonly />
+            <div class="form-text">El vendedor es quien publicó la prenda y no se puede reasignar.</div>
+        </div>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Imagen" class="form-label">Reemplazar foto</label>
+        <input asp-for="Imagen" type="file" class="form-control" accept="image/*" />
+        <span asp-validation-for="Imagen" class="text-danger"></span>
+        <div class="form-text">Deja este campo vacío para conservar la foto actual. JPG, PNG o WEBP, máximo 5 MB.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar cambios</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

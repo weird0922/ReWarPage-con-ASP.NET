@@ -1,0 +1,52 @@
+@model ReWearWeb.Models.DTOs.CategoriaDetailsViewModel
+
+@{
+    ViewData["Title"] = "Detalle de categoría";
+}
+
+<h1>@Model.Categoria.Nombre</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Categoria.Descripcion)</dt>
+    <dd class="col-sm-10">@Model.Categoria.Descripcion</dd>
+
+    <dt class="col-sm-2">@Html.DisplayNameFor(m => m.Categoria.Estado)</dt>
+    <dd class="col-sm-10">@(Model.Categoria.Estado ? "Activa" : "Inactiva")</dd>
+</dl>
+
+<a asp-action="Index" class="btn btn-secondary">Volver a la lista</a>
+
+<h3 class="mt-4">Prendas en esta categoría</h3>
+
+@if (!Model.Prendas.Any())
+{
+    <p>Todavía no hay prendas publicadas en esta categoría.</p>
+}
+else
+{
+    <table class="table table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Precio</th>
+                <th>Talla</th>
+                <th>Estado</th>
+                <th>Vendedor</th>
+                <th>Disponible</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var prenda in Model.Prendas)
+            {
+                <tr>
+                    <td>@prenda.Titulo</td>
+                    <td>S/ @prenda.Precio.ToString("0.00")</td>
+                    <td>@prenda.Talla</td>
+                    <td>@prenda.Estado</td>
+                    <td>@prenda.Vendedor.Nombre @prenda.Vendedor.Apellidos</td>
+                    <td>@(prenda.EstaDisponible ? "Sí" : "No")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

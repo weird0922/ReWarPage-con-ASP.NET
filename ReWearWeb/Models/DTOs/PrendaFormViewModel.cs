@@ -1,24 +1,24 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Http;
 
-namespace ReWearWeb.Models;
+namespace ReWearWeb.Models.DTOs;
 
-public class Prenda
+public class PrendaFormViewModel
 {
-    [Key]
     public int Id { get; set; }
 
     [Required(ErrorMessage = "El título es obligatorio")]
     [MaxLength(100)]
+    [Display(Name = "Título")]
     public string Titulo { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "La descripción es obligatoria")]
     [MaxLength(1000)]
+    [Display(Name = "Descripción")]
     public string Descripcion { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "El precio es obligatorio")]
     [Range(0.01, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0")]
-    [Column(TypeName = "decimal(10,2)")]
     public decimal Precio { get; set; }
 
     [Required(ErrorMessage = "La talla es obligatoria")]
@@ -35,22 +35,18 @@ public class Prenda
     [MaxLength(30)]
     public string? Color { get; set; }
 
-    [MaxLength(255)]
-    public string? ImagenUrl { get; set; }
-
-    public DateTime FechaPublicacion { get; set; } = DateTime.Now;
-
-    public bool EstaDisponible { get; set; } = true;
-
-    [Required]
+    [Required(ErrorMessage = "Selecciona un vendedor")]
+    [Display(Name = "Vendedor")]
     public int UsuarioId { get; set; }
 
-    [ForeignKey(nameof(UsuarioId))]
-    public virtual Usuario Vendedor { get; set; } = null!;
-
-    [Required]
+    [Required(ErrorMessage = "Selecciona una categoría")]
+    [Display(Name = "Categoría")]
     public int CategoriaId { get; set; }
 
-    [ForeignKey(nameof(CategoriaId))]
-    public virtual Categoria Categoria { get; set; } = null!;
+    [Display(Name = "Foto de la prenda")]
+    public IFormFile? Imagen { get; set; }
+
+    public string? ImagenUrlActual { get; set; }
+
+    public string? VendedorNombreCompleto { get; set; }
 }
