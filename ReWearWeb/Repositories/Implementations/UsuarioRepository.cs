@@ -89,13 +89,6 @@ public class UsuarioRepository : IUsuarioRepository
 
     public async Task<int> SaveChangesAsync()
     {
-        try
-        {
-            return await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            throw;
-        }
+        return await _context.SaveChangesAsync();
     }
 }

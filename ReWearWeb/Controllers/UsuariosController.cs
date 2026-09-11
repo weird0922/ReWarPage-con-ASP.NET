@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using ReWearWeb.Models;
 using ReWearWeb.Models.DTOs;
 using ReWearWeb.Services.Interfaces;
 
@@ -46,11 +47,6 @@ public class UsuariosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<ActionResult<UsuarioDto>> PostUsuario([FromBody] UsuarioCreateDto dto)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         var result = await _usuarioService.CrearAsync(dto);
         if (!result.Success)
         {
@@ -67,19 +63,12 @@ public class UsuariosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<ActionResult<UsuarioDto>> PutUsuario(int id, [FromBody] UsuarioUpdateDto dto)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         var result = await _usuarioService.ActualizarAsync(id, dto);
         if (!result.Success)
         {
-            if (result.Errors.FirstOrDefault()?.Contains("no encontrado") == true)
-            {
-                return NotFound(new { error = result.Errors.FirstOrDefault() });
-            }
-            return Conflict(new { error = result.Errors.FirstOrDefault() });
+            return result.ErrorType == ResultErrorType.NotFound
+                ? NotFound(new { error = result.Errors.FirstOrDefault() })
+                : Conflict(new { error = result.Errors.FirstOrDefault() });
         }
 
         return Ok(result.Data);
@@ -91,11 +80,6 @@ public class UsuariosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<UsuarioDto>> PatchEstadoUsuario(int id, [FromBody] UsuarioEstadoDto dto)
     {
-        if (!ModelState.IsValid)
-        {
-            return BadRequest(ModelState);
-        }
-
         var result = await _usuarioService.CambiarEstadoAsync(id, dto.Estado);
         if (!result.Success)
         {

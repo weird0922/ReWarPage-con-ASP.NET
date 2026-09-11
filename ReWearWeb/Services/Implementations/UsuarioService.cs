@@ -30,7 +30,7 @@ public class UsuarioService : IUsuarioService
         var usuario = await _usuarioRepository.GetByIdAsync(id);
         if (usuario == null)
         {
-            return Result<UsuarioDto>.Fail($"Usuario con id {id} no encontrado.");
+            return Result<UsuarioDto>.Fail($"Usuario con id {id} no encontrado.", ResultErrorType.NotFound);
         }
         return Result<UsuarioDto>.Ok(MapToDto(usuario));
     }
@@ -41,7 +41,7 @@ public class UsuarioService : IUsuarioService
 
         if (await _usuarioRepository.ExisteByEmailAsync(emailNormalizado))
         {
-            return Result<UsuarioDto>.Fail($"Ya existe un usuario con el email {emailNormalizado}.");
+            return Result<UsuarioDto>.Fail($"Ya existe un usuario con el email {emailNormalizado}.", ResultErrorType.Conflict);
         }
 
         var usuario = new Usuario
@@ -64,13 +64,13 @@ public class UsuarioService : IUsuarioService
         var usuario = await _usuarioRepository.GetByIdAsync(id);
         if (usuario == null)
         {
-            return Result<UsuarioDto>.Fail($"Usuario con id {id} no encontrado.");
+            return Result<UsuarioDto>.Fail($"Usuario con id {id} no encontrado.", ResultErrorType.NotFound);
         }
 
         var emailNormalizado = dto.Email.Trim();
         if (await _usuarioRepository.ExisteByEmailAsync(emailNormalizado, excludeId: id))
         {
-            return Result<UsuarioDto>.Fail($"Ya existe otro usuario con el email {emailNormalizado}.");
+            return Result<UsuarioDto>.Fail($"Ya existe otro usuario con el email {emailNormalizado}.", ResultErrorType.Conflict);
         }
 
         usuario.Nombre = dto.Nombre.Trim();
@@ -92,7 +92,7 @@ public class UsuarioService : IUsuarioService
     {
         if (!await _usuarioRepository.ExisteByIdAsync(id))
         {
-            return Result<UsuarioDto>.Fail($"Usuario con id {id} no encontrado.");
+            return Result<UsuarioDto>.Fail($"Usuario con id {id} no encontrado.", ResultErrorType.NotFound);
         }
 
         var usuario = await _usuarioRepository.UpdateEstadoAsync(id, estado);
@@ -104,7 +104,7 @@ public class UsuarioService : IUsuarioService
         var usuario = await _usuarioRepository.GetByIdAsync(id);
         if (usuario == null)
         {
-            return Result<UsuarioDto>.Fail($"Usuario con id {id} no encontrado.");
+            return Result<UsuarioDto>.Fail($"Usuario con id {id} no encontrado.", ResultErrorType.NotFound);
         }
 
         usuario.Estado = !usuario.Estado;
