@@ -1,8 +1,249 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+@{
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="bg-[var(--rewear-cream)] pb-20 text-zinc-950" style="background-color:var(--rewear-cream);">
+    <section class="rewear-hero rewear-section-wrap">
+        <div class="rewear-grid-hero">
+            <div class="rewear-card-main">
+                <div class="rewear-badges-row">
+                    <span class="rewear-badge-pill">
+                        Marketplace de moda circular
+                    </span>
+                    <span class="rewear-badge-text">Curado para comprar y vender mejor</span>
+                </div>
+
+                <h1 class="rewear-hero-title">
+                    reWear<br />
+                    ordena el<br />
+                    caos de<br />
+                    vender ropa.
+                </h1>
+
+                <p class="rewear-hero-description">
+                    Un marketplace para darle una segunda vida a la ropa con orden,
+                    confianza y estilo. Primero descubres la plataforma desde la landing;
+                    cuando quieras comprar o publicar, recien pasas por registro o login.
+                </p>
+
+                <div class="rewear-actions-row">
+                    <a
+                        asp-area="" asp-controller="Prendas" asp-action="Index"
+                        class="rewear-btn rewear-btn-primary"
+                    >
+                        Explorar prendas
+                    </a>
+                    <a
+                        asp-area="" asp-controller="Home" asp-action="Privacy"
+                        class="rewear-btn rewear-btn-outline"
+                    >
+                        Quiero vender
+                    </a>
+                    <a
+                        asp-area="" asp-controller="Home" asp-action="Privacy"
+                        class="rewear-btn-text"
+                    >
+                        Ya tengo cuenta
+                    </a>
+                </div>
+
+                <div class="rewear-features-micro">
+                    <div>
+                        <p class="rewear-micro-label">
+                            Compra
+                        </p>
+                        <p class="rewear-micro-text">
+                            Busca, revisa el detalle y paga con mas claridad.
+                        </p>
+                    </div>
+                    <div>
+                        <p class="rewear-micro-label">
+                            Venta
+                        </p>
+                        <p class="rewear-micro-text">
+                            Publica prendas y gestiona tus publicaciones desde una sola cuenta.
+                        </p>
+                    </div>
+                    <div>
+                        <p class="rewear-micro-label">
+                            Confianza
+                        </p>
+                        <p class="rewear-micro-text">
+                            Reportes, reputacion y seguimiento para bajar la friccion del proceso.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rewear-grid-right">
+                <div class="rewear-img-card">
+                    <img
+                        src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80"
+                        alt="Editorial reWear"
+                    />
+                    <div class="rewear-img-overlay-dark">
+                        <p class="rewear-overlay-label amber">
+                            Que es reWear
+                        </p>
+                        <p class="rewear-overlay-text">
+                            Una plataforma donde cualquiera puede vender la ropa que ya no usa y comprar la de otros con orden, confianza y estilo.
+                        </p>
+                    </div>
+                    <div class="rewear-img-overlay-light">
+                        <p class="rewear-overlay-label zinc">
+                            Seleccion curada
+                        </p>
+                        <p class="rewear-overlay-title">
+                            Piezas con estilo, mejor orden y mas confianza
+                        </p>
+                    </div>
+                </div>
+
+                <div class="rewear-card-mission">
+                    <p class="rewear-overlay-label amber">
+                        Nuestra mision
+                    </p>
+                    <h2 class="rewear-mission-text">
+                        Diseñar y construir la plataforma que ordene el caos de comprar y vender ropa usada.
+                    </h2>
+                    <p class="rewear-mission-quote">
+                        Segura. Confiable. Facil de usar para todos. Capaz de crecer sin romperse.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="rewear-section rewear-section-wrap">
+        <div class="rewear-section-header">
+            <div>
+                <p class="rewear-section-label">
+                    Que es reWear
+                </p>
+                <h2 class="rewear-section-title">
+                    Una experiencia pensada para circular mejor.
+                </h2>
+            </div>
+            <p class="rewear-section-description">
+                El concepto de producto se apoya en cuatro pilares: economia circular,
+                compra y venta desde la misma cuenta, pagos con garantia y una reputacion
+                que haga visible la confianza.
+            </p>
+        </div>
+
+        <div class="rewear-features-grid">
+            <article class="rewear-feature-card">
+                <span class="rewear-feature-number">01</span>
+                <h3 class="rewear-feature-title">Economia circular</h3>
+                <p class="rewear-feature-desc">
+                    Menos ropa desperdiciada, mas reuso y mas valor para prendas que todavia merecen circular.
+                </p>
+            </article>
+            <article class="rewear-feature-card">
+                <span class="rewear-feature-number">02</span>
+                <h3 class="rewear-feature-title">Comprar y vender</h3>
+                <p class="rewear-feature-desc">
+                    La misma persona puede publicar, descubrir piezas y cerrar compras desde una sola cuenta.
+                </p>
+            </article>
+            <article class="rewear-feature-card">
+                <span class="rewear-feature-number">03</span>
+                <h3 class="rewear-feature-title">Con garantia</h3>
+                <p class="rewear-feature-desc">
+                    La compra pasa por una pasarela de pago y genera un flujo mas claro para ambas partes.
+                </p>
+            </article>
+            <article class="rewear-feature-card">
+                <span class="rewear-feature-number">04</span>
+                <h3 class="rewear-feature-title">Reputacion real</h3>
+                <p class="rewear-feature-desc">
+                    La confianza se construye con calificaciones, reportes y seguimiento del estado de cada trato.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="rewear-section-wrap" style="padding-bottom:6rem;">
+        <div class="rewear-selections-grid">
+            <div class="rewear-selection-main">
+                <p class="rewear-section-label">
+                    Selecciones
+                </p>
+                <h2 class="rewear-section-title">
+                    Encuentra prendas con mas estilo y menos ruido.
+                </h2>
+                <p class="rewear-section-description" style="max-width:100%; margin-top:1.25rem;">
+                    reWear combina descubrimiento, curaduria visual y una experiencia mas
+                    clara para que comprar o vender ropa de segunda mano se sienta simple,
+                    moderna y confiable.
+                </p>
+
+                <div class="rewear-actions-row">
+                    <a
+                        asp-area="" asp-controller="Prendas" asp-action="Index"
+                        class="rewear-btn rewear-btn-primary"
+                        style="padding:.75rem 1.5rem;"
+                    >
+                        Ver catalogo
+                    </a>
+                    <a
+                        asp-area="" asp-controller="Home" asp-action="Privacy"
+                        class="rewear-btn rewear-btn-outline"
+                        style="padding:.75rem 1.5rem;"
+                    >
+                        Empezar a vender
+                    </a>
+                </div>
+            </div>
+
+            <div class="rewear-category-stack">
+                <article class="rewear-category-card">
+                    <p class="rewear-category-tag">Edit</p>
+                    <h3 class="rewear-category-title">Outerwear</h3>
+                    <p class="rewear-category-desc">
+                        Chaquetas, abrigos y piezas con presencia para construir looks con mas caracter.
+                    </p>
+                </article>
+                <article class="rewear-category-card">
+                    <p class="rewear-category-tag">Edit</p>
+                    <h3 class="rewear-category-title">Essentials</h3>
+                    <p class="rewear-category-desc">
+                        Basicos curados para uso diario, faciles de combinar y con mejor vida util.
+                    </p>
+                </article>
+                <article class="rewear-category-card">
+                    <p class="rewear-category-tag">Edit</p>
+                    <h3 class="rewear-category-title">Street Select</h3>
+                    <p class="rewear-category-desc">
+                        Prendas urbanas, siluetas relajadas y selecciones con un lenguaje mas contemporaneo.
+                    </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="rewear-section-wrap rewear-cta-section">
+        <div class="rewear-cta-card">
+            <p class="rewear-overlay-label amber">
+                ReWear community
+            </p>
+            <div class="rewear-cta-content">
+                <div>
+                    <h2 class="rewear-cta-title">
+                        Dale una segunda vida a tu ropa favorita.
+                    </h2>
+                    <p class="rewear-cta-desc">
+                        Descubre prendas con historia, vende lo que ya no usas y construye un
+                        closet mas intencional sin perder estilo.
+                    </p>
+                </div>
+                <a
+                    asp-area="" asp-controller="Home" asp-action="Privacy"
+                    class="rewear-btn rewear-btn-amber"
+                >
+                    Crear cuenta
+                </a>
+            </div>
+        </div>
+    </section>
 </div>

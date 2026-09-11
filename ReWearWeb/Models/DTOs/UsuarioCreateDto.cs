@@ -1,12 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace ReWearWeb.Models;
+namespace ReWearWeb.Models.DTOs;
 
-public class Usuario
+public class UsuarioCreateDto
 {
-    [Key]
-    public int Id { get; set; }
-
     [Required(ErrorMessage = "El nombre es obligatorio")]
     [MaxLength(50)]
     public string Nombre { get; set; } = string.Empty;
@@ -27,14 +24,4 @@ public class Usuario
 
     [MaxLength(20)]
     public string? Telefono { get; set; }
-
-    public DateTime FechaRegistro { get; set; } = DateTime.Now;
-
-    public bool Estado { get; set; } = true;
-
-    public virtual ICollection<Prenda> PrendasEnVenta { get; set; } = new List<Prenda>();
-
-    public virtual ICollection<Venta> Ventas { get; set; } = new List<Venta>();
-
-    public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
 }

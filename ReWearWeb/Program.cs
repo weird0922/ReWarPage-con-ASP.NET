@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ReWearWeb.Data;
+using ReWearWeb.Repositories.Implementations;
+using ReWearWeb.Repositories.Interfaces;
 using ReWearWeb.Services.Implementations;
 using ReWearWeb.Services.Interfaces;
 
@@ -9,6 +11,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddScoped<IPrendaService, PrendaService>();
+
+builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
+builder.Services.AddScoped<IUsuarioService, UsuarioService>();
 
 builder.Services.AddControllersWithViews();
 

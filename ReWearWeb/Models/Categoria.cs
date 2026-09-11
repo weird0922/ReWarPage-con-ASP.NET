@@ -14,5 +14,7 @@ public class Categoria
     [MaxLength(200)]
     public string? Descripcion { get; set; }
 
+    public bool Estado { get; set; } = true;
+
     public virtual ICollection<Prenda> Prendas { get; set; } = new List<Prenda>();
 }

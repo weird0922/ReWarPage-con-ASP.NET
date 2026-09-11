@@ -12,6 +12,10 @@ public class AppDbContext : DbContext
     public DbSet<Usuario> Usuarios { get; set; }
     public DbSet<Categoria> Categorias { get; set; }
     public DbSet<Prenda> Prendas { get; set; }
+    public DbSet<Venta> Ventas { get; set; }
+    public DbSet<DetalleVenta> DetalleVentas { get; set; }
+    public DbSet<Compra> Compras { get; set; }
+    public DbSet<DetalleCompra> DetalleCompras { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -39,17 +43,19 @@ public class AppDbContext : DbContext
         {
             entity.HasIndex(u => u.Email).IsUnique();
             entity.Property(u => u.FechaRegistro).HasDefaultValueSql("GETDATE()");
+            entity.Property(u => u.Estado).HasDefaultValue(true);
         });
 
         modelBuilder.Entity<Categoria>(entity =>
         {
             entity.HasIndex(c => c.Nombre).IsUnique();
+            entity.Property(c => c.Estado).HasDefaultValue(true);
 
             entity.HasData(
-                new Categoria { Id = 1, Nombre = "Camisas", Descripcion = "Camisas casuales y formales" },
-                new Categoria { Id = 2, Nombre = "Pantalones", Descripcion = "Jeans, pantalones casuales y formales" },
-                new Categoria { Id = 3, Nombre = "Vestidos", Descripcion = "Vestidos de todo tipo" },
-                new Categoria { Id = 4, Nombre = "Zapatos", Descripcion = "Zapatillas, zapatos formales y casuales" }
+                new Categoria { Id = 1, Nombre = "Camisas", Descripcion = "Camisas casuales y formales", Estado = true },
+                new Categoria { Id = 2, Nombre = "Pantalones", Descripcion = "Jeans, pantalones casuales y formales", Estado = true },
+                new Categoria { Id = 3, Nombre = "Vestidos", Descripcion = "Vestidos de todo tipo", Estado = true },
+                new Categoria { Id = 4, Nombre = "Zapatos", Descripcion = "Zapatillas, zapatos formales y casuales", Estado = true }
             );
         });
 
@@ -64,7 +70,8 @@ public class AppDbContext : DbContext
                     Email = "maria@rewear.pe",
                     Password = "Rewear2024",
                     Telefono = "987654321",
-                    FechaRegistro = new DateTime(2024, 1, 15)
+                    FechaRegistro = new DateTime(2024, 1, 15),
+                    Estado = true
                 },
                 new Usuario
                 {
@@ -74,7 +81,8 @@ public class AppDbContext : DbContext
                     Email = "carlos@rewear.pe",
                     Password = "Rewear2024",
                     Telefono = "912345678",
-                    FechaRegistro = new DateTime(2024, 2, 10)
+                    FechaRegistro = new DateTime(2024, 2, 10),
+                    Estado = true
                 },
                 new Usuario
                 {
@@ -84,7 +92,8 @@ public class AppDbContext : DbContext
                     Email = "ana@rewear.pe",
                     Password = "Rewear2024",
                     Telefono = "955111222",
-                    FechaRegistro = new DateTime(2024, 3, 5)
+                    FechaRegistro = new DateTime(2024, 3, 5),
+                    Estado = true
                 }
             );
         });
@@ -168,6 +177,82 @@ public class AppDbContext : DbContext
                     CategoriaId = 1
                 }
             );
+        });
+
+        modelBuilder.Entity<Venta>(entity =>
+        {
+            entity.HasOne(v => v.Vendedor)
+                  .WithMany(u => u.Ventas)
+                  .HasForeignKey(v => v.UsuarioVendedorId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(v => v.Comprador)
+                  .WithMany()
+                  .HasForeignKey(v => v.UsuarioCompradorId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.Property(v => v.Subtotal).HasPrecision(10, 2);
+            entity.Property(v => v.Impuesto).HasPrecision(10, 2);
+            entity.Property(v => v.Total).HasPrecision(10, 2);
+            entity.Property(v => v.FechaVenta).HasDefaultValueSql("GETDATE()");
+
+            entity.HasIndex(v => v.UsuarioVendedorId);
+            entity.HasIndex(v => v.UsuarioCompradorId);
+            entity.HasIndex(v => v.FechaVenta);
+        });
+
+        modelBuilder.Entity<DetalleVenta>(entity =>
+        {
+            entity.HasOne(d => d.Venta)
+                  .WithMany(v => v.DetalleVentas)
+                  .HasForeignKey(d => d.VentaId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(d => d.Prenda)
+                  .WithMany()
+                  .HasForeignKey(d => d.PrendaId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.Property(d => d.PrecioUnitario).HasPrecision(10, 2);
+            entity.Property(d => d.Subtotal).HasPrecision(10, 2);
+
+            entity.HasIndex(d => d.VentaId);
+            entity.HasIndex(d => d.PrendaId);
+        });
+
+        modelBuilder.Entity<Compra>(entity =>
+        {
+            entity.HasOne(c => c.Comprador)
+                  .WithMany(u => u.Compras)
+                  .HasForeignKey(c => c.UsuarioCompradorId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.Property(c => c.Subtotal).HasPrecision(10, 2);
+            entity.Property(c => c.Impuesto).HasPrecision(10, 2);
+            entity.Property(c => c.Total).HasPrecision(10, 2);
+            entity.Property(c => c.FechaCompra).HasDefaultValueSql("GETDATE()");
+
+            entity.HasIndex(c => c.UsuarioCompradorId);
+            entity.HasIndex(c => c.FechaCompra);
+        });
+
+        modelBuilder.Entity<DetalleCompra>(entity =>
+        {
+            entity.HasOne(d => d.Compra)
+                  .WithMany(c => c.DetalleCompras)
+                  .HasForeignKey(d => d.CompraId)
+                  .OnDelete(DeleteBehavior.Cascade);
+
+            entity.HasOne(d => d.Prenda)
+                  .WithMany()
+                  .HasForeignKey(d => d.PrendaId)
+                  .OnDelete(DeleteBehavior.Restrict);
+
+            entity.Property(d => d.PrecioUnitario).HasPrecision(10, 2);
+            entity.Property(d => d.Subtotal).HasPrecision(10, 2);
+
+            entity.HasIndex(d => d.CompraId);
+            entity.HasIndex(d => d.PrendaId);
         });
     }
 }
