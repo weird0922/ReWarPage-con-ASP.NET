@@ -59,7 +59,7 @@ public class UsuarioService : IUsuarioService
         return Result<UsuarioDto>.Ok(MapToDto(creado));
     }
 
-    public async Task<Result<UsuarioDto>> ActualizarAsync(int id, UsuarioUpdateDto dto)
+    public async Task<Result<UsuarioDto>> ActualizarEmailAsync(int id, UsuarioEmailUpdateDto dto)
     {
         var usuario = await _usuarioRepository.GetByIdAsync(id);
         if (usuario == null)
@@ -73,16 +73,7 @@ public class UsuarioService : IUsuarioService
             return Result<UsuarioDto>.Fail($"Ya existe otro usuario con el email {emailNormalizado}.", ResultErrorType.Conflict);
         }
 
-        usuario.Nombre = dto.Nombre.Trim();
-        usuario.Apellidos = dto.Apellidos.Trim();
         usuario.Email = emailNormalizado;
-        usuario.Telefono = string.IsNullOrWhiteSpace(dto.Telefono) ? null : dto.Telefono.Trim();
-        usuario.Estado = dto.Estado;
-
-        if (!string.IsNullOrWhiteSpace(dto.Password) && dto.Password.Length >= 6)
-        {
-            usuario.Password = dto.Password;
-        }
 
         var actualizado = await _usuarioRepository.UpdateAsync(usuario);
         return Result<UsuarioDto>.Ok(MapToDto(actualizado));

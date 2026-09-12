@@ -61,14 +61,28 @@ public class UsuariosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<ActionResult<UsuarioDto>> PutUsuario(int id, [FromBody] UsuarioUpdateDto dto)
+    public async Task<ActionResult<UsuarioDto>> PutUsuario(int id, [FromBody] UsuarioEmailUpdateDto dto)
     {
-        var result = await _usuarioService.ActualizarAsync(id, dto);
+        var result = await _usuarioService.ActualizarEmailAsync(id, dto);
         if (!result.Success)
         {
             return result.ErrorType == ResultErrorType.NotFound
                 ? NotFound(new { error = result.Errors.FirstOrDefault() })
                 : Conflict(new { error = result.Errors.FirstOrDefault() });
+        }
+
+        return Ok(result.Data);
+    }
+
+    [HttpDelete("{id}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioDto))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<ActionResult<UsuarioDto>> DeleteUsuario(int id)
+    {
+        var result = await _usuarioService.ToggleEstadoAsync(id);
+        if (!result.Success)
+        {
+            return NotFound(new { error = result.Errors.FirstOrDefault() });
         }
 
         return Ok(result.Data);
