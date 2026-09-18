@@ -4,7 +4,8 @@ public enum ResultErrorType
 {
     Validation,
     NotFound,
-    Conflict
+    Conflict,
+    BadRequest
 }
 
 public class Result

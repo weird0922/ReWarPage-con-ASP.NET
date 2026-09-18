@@ -1,0 +1,88 @@
+@model ReWearWeb.Models.DTOs.UsuarioCreateDto
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Crear cuenta";
+    Layout = "_Layout";
+}
+
+<section class="rewear-auth-section rewear-section-wrap" style="background-color:var(--rewear-cream); min-height: calc(100vh - 180px);">
+    <div class="rewear-auth-wrapper" style="max-width: 520px; margin: 0 auto;">
+        <div style="text-align:center; margin-bottom: 2.5rem;">
+            <p class="rewear-badge-pill" style="margin:0 auto 1rem auto; display:inline-flex;">Marketplace de moda circular</p>
+            <h1 class="rewear-hero-title" style="font-size: 2.5rem; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: .75rem;">
+                Crea tu cuenta
+            </h1>
+            <p class="rewear-section-description" style="margin:0; color: #71717a;">
+                Completa tus datos para empezar a vender y comprar en reWear.
+            </p>
+        </div>
+
+        <form asp-action="Registrar" method="post" class="rewear-auth-form">
+            <div asp-validation-summary="All" class="text-danger mb-3" style="font-size:.875rem;"></div>
+
+            <div class="rewear-form-row">
+                <label asp-for="Nombre" class="rewear-form-label">Nombre</label>
+                <input asp-for="Nombre" class="rewear-form-input" placeholder="Ej: María" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+
+            <div class="rewear-form-row">
+                <label asp-for="Apellidos" class="rewear-form-label">Apellidos</label>
+                <input asp-for="Apellidos" class="rewear-form-input" placeholder="Ej: García López" />
+                <span asp-validation-for="Apellidos" class="text-danger"></span>
+            </div>
+
+            <div class="rewear-form-row">
+                <label asp-for="Email" class="rewear-form-label">Correo electrónico</label>
+                <input asp-for="Email" type="email" class="rewear-form-input" placeholder="tu@correo.pe" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="rewear-form-row">
+                <label asp-for="Password" class="rewear-form-label">Contraseña</label>
+                <input asp-for="Password" type="password" class="rewear-form-input" placeholder="Mínimo 6 caracteres" autocomplete="new-password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="rewear-form-row">
+                <label asp-for="Telefono" class="rewear-form-label">Teléfono <span style="color:#a1a1aa; font-weight:400;">(opcional)</span></label>
+                <input asp-for="Telefono" type="tel" class="rewear-form-input" placeholder="Ej: 987 654 321" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="rewear-btn rewear-btn-primary rewear-auth-submit">
+                Crear cuenta
+            </button>
+
+            <p class="rewear-auth-footer">
+                ¿Ya tienes cuenta?
+                <a asp-action="Login" asp-controller="Account" class="rewear-auth-link">
+                    Inicia sesión aquí
+                </a>
+            </p>
+        </form>
+    </div>
+</section>
+
+@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+(function () {
+    if (!window.jQuery || !jQuery.validator) return;
+    var v = jQuery.validator;
+    var fmt = jQuery.validator.format;
+
+    v.messages.required = "Este campo es obligatorio.";
+    v.messages.email = "Ingresa un correo electrónico válido (con arroba y dominio correcto).";
+    v.messages.minlength = fmt("Este campo debe tener al menos {0} caracteres.");
+    v.messages.maxlength = fmt("Este campo no puede exceder los {0} caracteres.");
+    v.messages.min = fmt("Introduce un valor mayor o igual a {0}.");
+    v.messages.max = fmt("Introduce un valor menor o igual a {0}.");
+    v.messages.number = "Introduce un número válido.";
+    v.messages.digits = "Solo se permiten dígitos numéricos.";
+    v.messages.equalTo = "Los valores no coinciden.";
+    v.messages.url = "Introduce una URL válida.";
+    v.messages.range = fmt("Introduce un valor entre {0} y {1}.");
+    v.messages.pattern = fmt("Formato incorrecto. Revisa el campo.");
+})();
+</script>

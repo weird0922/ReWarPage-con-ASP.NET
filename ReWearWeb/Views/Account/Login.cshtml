@@ -1,0 +1,29 @@
+@{
+    ViewData["Title"] = "Iniciar sesión";
+    Layout = "_Layout";
+}
+
+<section class="rewear-auth-section rewear-section-wrap" style="background-color:var(--rewear-cream); min-height: calc(100vh - 180px);">
+    <div class="rewear-auth-wrapper" style="max-width: 520px; margin: 0 auto; text-align:center;">
+        <p class="rewear-badge-pill" style="margin:0 auto 1rem auto; display:inline-flex;">reWear</p>
+        <h1 class="rewear-hero-title" style="font-size: 2.5rem; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: .75rem;">
+            Iniciar sesión
+        </h1>
+        <p class="rewear-section-description" style="margin:0 0 2.5rem 0; color: #71717a;">
+            Esta sección se habilitará próximamente. Mientras tanto, puedes usar tu cuenta para
+            gestionar tus publicaciones.
+        </p>
+
+        <div class="rewear-auth-form" style="border: 1px dashed #d4d4d8; padding: 2.25rem; border-radius: 20px; background: rgba(255,255,255,0.35);">
+            <p style="font-weight: 600; color: #09090b; margin-bottom: .5rem;">
+                🔒 En desarrollo
+            </p>
+            <p style="color: #52525b; margin-bottom: 1.75rem;">
+                El inicio de sesión con autenticación estará disponible en la próxima actualización.
+            </p>
+            <a asp-action="Registrar" asp-controller="Account" class="rewear-btn rewear-btn-primary" style="display:inline-block;">
+                Volver a crear cuenta
+            </a>
+        </div>
+    </div>
+</section>

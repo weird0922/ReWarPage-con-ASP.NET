@@ -36,5 +36,7 @@ public class Usuario
 
     public virtual ICollection<Venta> Ventas { get; set; } = new List<Venta>();
 
+    public virtual ICollection<Venta> ComprasComoComprador { get; set; } = new List<Venta>();
+
     public virtual ICollection<Compra> Compras { get; set; } = new List<Compra>();
 }

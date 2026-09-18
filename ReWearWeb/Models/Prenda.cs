@@ -42,6 +42,10 @@ public class Prenda
 
     public bool EstaDisponible { get; set; } = true;
 
+    public virtual ICollection<DetalleVenta> DetalleVentas { get; set; } = new List<DetalleVenta>();
+
+    public virtual ICollection<DetalleCompra> DetalleCompras { get; set; } = new List<DetalleCompra>();
+
     [Required]
     public int UsuarioId { get; set; }
 

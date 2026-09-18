@@ -47,42 +47,45 @@ public class UsuariosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status409Conflict)]
     public async Task<ActionResult<UsuarioDto>> PostUsuario([FromBody] UsuarioCreateDto dto)
     {
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError(string.Empty, "El servidor rechazó los datos porque no pasaron las validaciones requeridas (DataAnnotations + reglas personalizadas).");
+            return ValidationProblem(ModelState);
+        }
+
         var result = await _usuarioService.CrearAsync(dto);
         if (!result.Success)
         {
-            return Conflict(new { error = result.Errors.FirstOrDefault() });
+            return result.ErrorType == ResultErrorType.Conflict
+                ? Conflict(new { error = result.Errors.FirstOrDefault() })
+                : BadRequest(new { error = result.Errors.FirstOrDefault() });
         }
 
         return CreatedAtAction(nameof(GetUsuarios), new { id = result.Data!.Id }, result.Data);
     }
 
-    [HttpPut("{id}")]
+    [HttpPut("{id:int}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioDto))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
-    public async Task<ActionResult<UsuarioDto>> PutUsuario(int id, [FromBody] UsuarioEmailUpdateDto dto)
+    public async Task<ActionResult<UsuarioDto>> PutUsuario(int id, [FromBody] UsuarioUpdateDto dto)
     {
-        var result = await _usuarioService.ActualizarEmailAsync(id, dto);
-        if (!result.Success)
+        if (!ModelState.IsValid)
         {
-            return result.ErrorType == ResultErrorType.NotFound
-                ? NotFound(new { error = result.Errors.FirstOrDefault() })
-                : Conflict(new { error = result.Errors.FirstOrDefault() });
+            ModelState.AddModelError(string.Empty, "Revisa los mensajes de error en cada campo. El servidor valida de nuevo incluso si la validación del cliente fue omitida.");
+            return ValidationProblem(ModelState);
         }
 
-        return Ok(result.Data);
-    }
-
-    [HttpDelete("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsuarioDto))]
-    [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<ActionResult<UsuarioDto>> DeleteUsuario(int id)
-    {
-        var result = await _usuarioService.ToggleEstadoAsync(id);
+        var result = await _usuarioService.ActualizarAsync(id, dto);
         if (!result.Success)
         {
-            return NotFound(new { error = result.Errors.FirstOrDefault() });
+            return result.ErrorType switch
+            {
+                ResultErrorType.NotFound => NotFound(new { error = result.Errors.FirstOrDefault() }),
+                ResultErrorType.Conflict => Conflict(new { error = result.Errors.FirstOrDefault() }),
+                _ => BadRequest(new { error = result.Errors.FirstOrDefault() })
+            };
         }
 
         return Ok(result.Data);
@@ -94,6 +97,12 @@ public class UsuariosController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<UsuarioDto>> PatchEstadoUsuario(int id, [FromBody] UsuarioEstadoDto dto)
     {
+        if (!ModelState.IsValid)
+        {
+            ModelState.AddModelError(string.Empty, "El campo 'estado' es requerido y debe ser true (activo) o false (inactivo).");
+            return ValidationProblem(ModelState);
+        }
+
         var result = await _usuarioService.CambiarEstadoAsync(id, dto.Estado);
         if (!result.Success)
         {

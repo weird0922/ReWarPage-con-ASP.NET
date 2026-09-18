@@ -13,6 +13,8 @@ public interface IUsuarioService
 
     Task<Result<UsuarioDto>> ActualizarEmailAsync(int id, UsuarioEmailUpdateDto dto);
 
+    Task<Result<UsuarioDto>> ActualizarAsync(int id, UsuarioUpdateDto dto);
+
     Task<Result<UsuarioDto>> CambiarEstadoAsync(int id, bool estado);
 
     Task<Result<UsuarioDto>> ToggleEstadoAsync(int id);

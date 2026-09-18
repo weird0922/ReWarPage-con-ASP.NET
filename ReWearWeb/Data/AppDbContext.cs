@@ -187,7 +187,7 @@ public class AppDbContext : DbContext
                   .OnDelete(DeleteBehavior.Restrict);
 
             entity.HasOne(v => v.Comprador)
-                  .WithMany()
+                  .WithMany(u => u.ComprasComoComprador)
                   .HasForeignKey(v => v.UsuarioCompradorId)
                   .OnDelete(DeleteBehavior.Restrict);
 
@@ -209,7 +209,7 @@ public class AppDbContext : DbContext
                   .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasOne(d => d.Prenda)
-                  .WithMany()
+                  .WithMany(p => p.DetalleVentas)
                   .HasForeignKey(d => d.PrendaId)
                   .OnDelete(DeleteBehavior.Restrict);
 
@@ -244,7 +244,7 @@ public class AppDbContext : DbContext
                   .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasOne(d => d.Prenda)
-                  .WithMany()
+                  .WithMany(p => p.DetalleCompras)
                   .HasForeignKey(d => d.PrendaId)
                   .OnDelete(DeleteBehavior.Restrict);
 

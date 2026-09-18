@@ -905,3 +905,78 @@ footer.footer a:hover,
   color: var(--rewear-zinc-500);
   font-size: 1rem;
 }
+
+.rewear-auth-section {
+  padding-top: 3rem;
+  padding-bottom: 4rem;
+}
+
+.rewear-auth-form {
+  background: #ffffff;
+  padding: 2.5rem;
+  border-radius: 28px;
+  border: 1px solid #e4e4e7;
+  box-shadow: 0 12px 32px -8px rgba(9, 9, 11, 0.08);
+}
+
+.rewear-form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1.5rem;
+}
+
+.rewear-form-label {
+  font-family: "Inter", system-ui, sans-serif;
+  font-weight: 500;
+  color: #18181b;
+  font-size: 0.9rem;
+}
+
+.rewear-form-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  border: 1px solid #d4d4d8;
+  background-color: #fafafa;
+  font-size: 1rem;
+  font-family: "Inter", system-ui, sans-serif;
+  color: #09090b;
+  transition: all .18s ease;
+  outline: none;
+}
+
+.rewear-form-input:focus {
+  border-color: #18181b;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.08);
+}
+
+.rewear-form-input::placeholder {
+  color: #a1a1aa;
+}
+
+.rewear-auth-submit {
+  width: 100%;
+  padding: 0.95rem 1rem !important;
+  font-size: 1rem;
+  justify-content: center;
+  margin-top: 0.75rem;
+}
+
+.rewear-auth-footer {
+  margin-top: 1.75rem;
+  text-align: center;
+  color: #52525b;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.rewear-auth-link {
+  color: #09090b;
+  font-weight: 600;
+  text-decoration: underline;
+  text-decoration-color: #f59e0b;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}

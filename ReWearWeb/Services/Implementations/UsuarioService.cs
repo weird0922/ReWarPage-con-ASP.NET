@@ -79,6 +79,45 @@ public class UsuarioService : IUsuarioService
         return Result<UsuarioDto>.Ok(MapToDto(actualizado));
     }
 
+    public async Task<Result<UsuarioDto>> ActualizarAsync(int id, UsuarioUpdateDto dto)
+    {
+        if (id <= 0 || id != dto.Id)
+        {
+            return Result<UsuarioDto>.Fail("El identificador del usuario no coincide con el cuerpo de la solicitud.", ResultErrorType.BadRequest);
+        }
+
+        var usuario = await _usuarioRepository.GetByIdAsync(id);
+        if (usuario == null)
+        {
+            return Result<UsuarioDto>.Fail($"Usuario con id {id} no encontrado.", ResultErrorType.NotFound);
+        }
+
+        var emailNormalizado = dto.Email.Trim();
+        if (await _usuarioRepository.ExisteByEmailAsync(emailNormalizado, excludeId: id))
+        {
+            return Result<UsuarioDto>.Fail($"El correo {emailNormalizado} ya está registrado en otra cuenta de reWear.", ResultErrorType.Conflict);
+        }
+
+        usuario.Nombre = dto.Nombre.Trim();
+        usuario.Apellidos = dto.Apellidos.Trim();
+        usuario.Email = emailNormalizado;
+        usuario.Telefono = string.IsNullOrWhiteSpace(dto.Telefono) ? null : dto.Telefono.Trim();
+        usuario.Estado = dto.Estado;
+
+        if (!string.IsNullOrWhiteSpace(dto.Password))
+        {
+            var passNormalizada = dto.Password.Trim();
+            if (passNormalizada.Length < 6)
+            {
+                return Result<UsuarioDto>.Fail("La nueva contraseña debe tener al menos 6 caracteres.", ResultErrorType.BadRequest);
+            }
+            usuario.Password = passNormalizada;
+        }
+
+        var actualizado = await _usuarioRepository.UpdateAsync(usuario);
+        return Result<UsuarioDto>.Ok(MapToDto(actualizado));
+    }
+
     public async Task<Result<UsuarioDto>> CambiarEstadoAsync(int id, bool estado)
     {
         if (!await _usuarioRepository.ExisteByIdAsync(id))
